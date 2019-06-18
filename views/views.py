@@ -3,7 +3,7 @@ import pymysql
 from flask import Blueprint, request
 from flask_login import login_required
 from .controller.service.teacher_service import teacher_service
-from .controller.service.main_service import logout_user
+from .controller.service.main_service import logout
 from .controller import control
 
 
@@ -53,4 +53,8 @@ def login_teacher():
 
 @views.route('/logout')
 def log_out():
-    logout_user()
+    logout()
+    ret = {
+        'success': True
+    }
+    return json.dumps(ret, ensure_ascii=False)
