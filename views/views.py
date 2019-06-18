@@ -1,6 +1,7 @@
 import json
 import pymysql
 from flask import Blueprint, request
+from flask_login import login_required
 from .controller.service.teacher_service import teacher_service
 from .controller.service.main_service import logout_user
 from .controller import control
@@ -9,6 +10,7 @@ from .controller import control
 views = Blueprint('views',__name__)
 
 
+@login_required
 @views.route('/hello')
 def show():
     return 'views.hello'
