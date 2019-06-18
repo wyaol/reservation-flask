@@ -15,7 +15,7 @@ def show():
 @views.route('/register_teacher', methods=['POST'])
 def register_teacher():
     teacher_id = request.form.get('teacher_id')
-    password = request.form.get('teacher_id')
+    password = request.form.get('password')
     try:
         teacher_service.register_teacher(teacher_id, password)
         ret = {
@@ -24,6 +24,6 @@ def register_teacher():
     except pymysql.err.IntegrityError as e:
         ret = {
             'success': False,
-            'msg': e,
+            'msg': str(e),
         }
     return json.dumps(ret, ensure_ascii=False)
