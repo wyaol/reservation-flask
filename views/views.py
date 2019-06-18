@@ -40,7 +40,7 @@ def register_teacher():
 
 
 @views.route('/login', methods=['POST'])
-def login():
+def mlogin():
     identity = request.form.get('identity')
     id = request.form.get('id')
     password = request.form.get('password')
@@ -52,7 +52,7 @@ def login():
     return json.dumps(ret, ensure_ascii=False)
 
 @views.route('/logout')
-def logout():
+def mlogout():
     service_logout()
     ret = {
         'success': True
