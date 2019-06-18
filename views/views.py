@@ -52,7 +52,7 @@ def login():
     return json.dumps(ret, ensure_ascii=False)
 
 @views.route('/logout')
-def login():
+def logout():
     logout()
     ret = {
         'success': True
