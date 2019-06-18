@@ -21,6 +21,7 @@ class SQL:
                                                  SQL.keys2str(list(kwargs.keys())),
                                                  SQL.values2str(list(kwargs.values())))
         self.cursor.execute(sql)
+        self.conn.commit()
 
     @staticmethod
     def keys2str(keys: list):
