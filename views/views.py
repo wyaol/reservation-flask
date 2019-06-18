@@ -17,11 +17,17 @@ def register_teacher():
     teacher_id = request.form.get('teacher_id')
     password = request.form.get('password')
     try:
+        assert teacher_id is not None and password is not None, '传入参数不合法！'
         teacher_service.register_teacher(teacher_id, password)
         ret = {
             'success': True
         }
     except pymysql.err.IntegrityError as e:
+        ret = {
+            'success': False,
+            'msg': str(e),
+        }
+    except AssertionError as e:
         ret = {
             'success': False,
             'msg': str(e),
