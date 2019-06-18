@@ -2,6 +2,7 @@ import json
 import pymysql
 from flask import Blueprint, request
 from .controller.service.teacher_service import teacher_service
+from .controller import control
 
 
 views = Blueprint('views',__name__)
@@ -35,12 +36,13 @@ def register_teacher():
     return json.dumps(ret, ensure_ascii=False)
 
 
-@views.route('/login_teacher', methods=['POST'])
+@views.route('/login', methods=['POST'])
 def login_teacher():
-    teacher_id = request.form.get('teacher_id')
+    identity = request.form.get('identity')
+    id = request.form.get('id')
     password = request.form.get('password')
-    assert teacher_id is not None and password is not None, '传入参数不合法！'
-    teacher_service.login(teacher_id, password)
+    assert id is not None or password is not None or identity is None, '传入参数不合法！'
+    control.login(identity, id, password)
     ret = {
         'success': True
     }

@@ -1,11 +1,10 @@
-#### 安装flask
+#### 安装flask pymysql操作数据库 flask-login
 python3 -m pip install flask
+python3 -m pip install Flask-Login
+python3 -m pip install pymysql
 
 #### 赋予operate.sh 权限
 chmod 777 operate.sh
-
-#### 安装pymysql操作数据库
-python3 -m pip install pymysql
 
 #### 安装数据库
 msyql 创建数据库 reservation
