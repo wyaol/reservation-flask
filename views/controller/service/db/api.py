@@ -33,9 +33,13 @@ class SQL:
         self.cursor.execute(sql)
         self.conn.commit()
 
+    def select(self, table_name: str, argvs: list, **kwargs):
+        sql = 'select %s from %s where %s'%(SQL.keys2str(argvs), table_name, SQL.dict2str(kwargs))
+        return self.cursor.execute(sql)
+
     @staticmethod
-    def keys2str(keys: list):
-        return ', '.join(keys)
+    def keys2str(keys: list, connector: str=', '):
+        return connector.join(keys)
 
     @staticmethod
     def values2str(keys: list):

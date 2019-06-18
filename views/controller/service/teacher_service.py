@@ -12,7 +12,7 @@ class TeacherService:
     def __init__(self):
         self.db = TeacherDB()
 
-    def register_teacher(self, teacher_id, password):
+    def register(self, teacher_id, password):
         """
         注册用户
         :param teacher_id: 用户工号
@@ -20,6 +20,12 @@ class TeacherService:
         :return:
         """
         self.db.sql.insert(TEACHER_TABLE_NAME, teacher_id=teacher_id, password=password)
+
+    def login(self, teacher_id, password):
+        res_num = self.db.sql.select(TEACHER_TABLE_NAME, ['*'], teacher_id=teacher_id, password=password)
+        if res_num != 1:
+            return True
+        pass
 
 
 teacher_service = TeacherService().instance
