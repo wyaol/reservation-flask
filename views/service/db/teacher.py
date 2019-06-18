@@ -1,2 +1,6 @@
-def create_teacher(teacher_id, password):
-    return 'insert into '
+from .api import sql
+
+class TeacherDB:
+
+    def __init__(self):
+        self.sql = sql

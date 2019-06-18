@@ -12,9 +12,26 @@ class SQL:
 
     def __init__(self, host=config.HOST, user=config.USER, password=config.PASSWORD, database=config.DATABASE, charset=config.CHARSET):
         # 连接database
-        self.conn = pymysql.connect(host=host, user=user, password=password, database=database, charset=charset)
+        self.conn = pymysql.connect(host=host, user=user, password=password, database=database)
         # 得到一个可以执行SQL语句的光标对象
         self.cursor = self.conn.cursor()
+
+    def insert(self, table_name, *argvs, **kwargs):
+        sql = 'insert into %s (%s) values (%s)'%(table_name,
+                                                 SQL.keys2str(list(kwargs.keys())),
+                                                 SQL.values2str(list(kwargs.values())))
+        self.cursor.execute(sql)
+
+    @staticmethod
+    def keys2str(keys: list):
+        return ', '.join(keys)
+
+    @staticmethod
+    def values2str(keys: list):
+        for i in range(len(keys)):
+            if isinstance(keys[i], str):
+                keys[i] = "'%s'" % keys[i]
+        return ', '.join(keys)
 
     def close(self):
         """
@@ -22,3 +39,6 @@ class SQL:
         :return:
         """
         pass
+
+
+sql = SQL().instance

@@ -1,5 +1,7 @@
 import json
-from flask import Blueprint
+import pymysql
+from flask import Blueprint, request
+from .service.teacher_service import teacher_service
 
 
 views = Blueprint('views',__name__)
@@ -10,10 +12,18 @@ def show():
     return 'views.hello'
 
 
-@views.route('/register_teacher')
+@views.route('/register_teacher', methods=['POST'])
 def register_teacher():
-    ret = {
-        'success': True,
-
-    }
+    teacher_id = request.form.get('teacher_id')
+    password = request.form.get('teacher_id')
+    try:
+        teacher_service.register_teacher(teacher_id, password)
+        ret = {
+            'success': True
+        }
+    except pymysql.err.IntegrityError as e:
+        ret = {
+            'success': False,
+            'msg': e,
+        }
     return json.dumps(ret, ensure_ascii=False)

@@ -3,3 +3,5 @@ USER = 'root'
 PASSWORD = 'wyao161211'
 DATABASE = 'reservation'
 CHARSET = 'utf-8'
+
+TEACHER_TABLE_NAME = 'teacher'
