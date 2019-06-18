@@ -1,5 +1,6 @@
 from flask import Flask
 from views.views import views
+from .import config
 
 
 app = Flask(__name__)
@@ -12,4 +13,4 @@ def hello_world():
 
 
 if __name__ == '__main__':
-    app.run('0.0.0.0', debug=True, port=443, ssl_context=('server.crt', 'server.key'))
+    app.run(config.HOST, debug=config.DEBUG, port=config.PORT, ssl_context=config.SSL_CONTEXT)
