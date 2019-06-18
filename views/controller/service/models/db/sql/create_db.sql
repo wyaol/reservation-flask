@@ -1,5 +1,5 @@
 -- 创建teacher表
-drop database if exists teacher;
+drop table if exists teacher;
 create table teacher(
     id int not null primary key,
     password varchar(200) not null,
