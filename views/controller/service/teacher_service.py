@@ -1,5 +1,7 @@
 from .db.teacher import TeacherDB
 from .db.config import TEACHER_TABLE_NAME
+from .session import Session
+from flask_login import login_user
 
 
 class TeacherService:
@@ -21,11 +23,15 @@ class TeacherService:
         """
         self.db.sql.insert(TEACHER_TABLE_NAME, teacher_id=teacher_id, password=password)
 
-    def login(self, teacher_id, password):
+    def check_login(self, teacher_id, password):
         res_num = self.db.sql.select(TEACHER_TABLE_NAME, ['*'], teacher_id=teacher_id, password=password)
         if res_num != 1:
             return True
-        pass
+        return False
+
+    def login(self, teacher_id):
+        session = Session(teacher_id)
+        login_user(session)
 
 
 teacher_service = TeacherService().instance
