@@ -5,6 +5,7 @@ import config
 
 
 app = Flask(__name__)
+app.secret_key = '123456'
 app.register_blueprint(views, url_prefix='/api')
 login_manager.login_view = 'login'
 login_manager.login_message_category = 'info'
