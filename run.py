@@ -1,16 +1,13 @@
 from flask import Flask
 from views.views import views
-from views.controller.service.session import login_manager
+from datetime import timedelta
 import config
 
 
 app = Flask(__name__)
 app.secret_key = '123456'
+app.permanent_session_lifetime = timedelta(days=1) #设置session的保存时间。
 app.register_blueprint(views, url_prefix='/api')
-login_manager.login_view = 'hello_world'
-login_manager.login_message_category = 'info'
-login_manager.login_message = 'Access denied.'
-login_manager.init_app(app)
 
 
 @app.route('/')

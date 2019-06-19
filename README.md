@@ -1,6 +1,5 @@
 #### 安装flask pymysql操作数据库 flask-login
 python3 -m pip install flask
-python3 -m pip install Flask-Login
 python3 -m pip install pymysql
 
 #### 赋予operate.sh 权限

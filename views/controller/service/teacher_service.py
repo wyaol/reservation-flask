@@ -1,7 +1,6 @@
 from .db.teacher import TeacherDB
 from .db.config import TEACHER_TABLE_NAME
 from .session import Session
-from flask_login import login_user
 
 
 class TeacherService:
