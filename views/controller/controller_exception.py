@@ -7,9 +7,9 @@
 
 class LoginFailException(Exception):
 
-    def __int__(self, msg):
+    def __init__(self, msg):
+        super().__init__()
         self.msg = msg
-        pass
 
     def __str__(self):
         return str(self.msg)
