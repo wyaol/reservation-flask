@@ -20,9 +20,8 @@ def show():
 @views.route('/register', methods=['POST'])
 def register():
     identity = request.form.get('identity')
-    wchat_id = request.form.get('wchat_id')
     id = request.form.get('id')
-    main_service.register(identity, wchat_id, id)
+    main_service.register(identity, id)
     ret = {
         'success': True
     }

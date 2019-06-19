@@ -23,6 +23,6 @@ def login_require(func):
     return  wrapper
 
 
-def register(identity, wchat_id, id):
+def register(identity, id):
     if identity == 'teacher':
-        sql.insert(TEACHER_TABLE_NAME, wchat_id=wchat_id, teacher_id=id)
+        sql.insert(TEACHER_TABLE_NAME, teacher_id=id)

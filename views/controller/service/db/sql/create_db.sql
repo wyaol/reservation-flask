@@ -1,8 +1,7 @@
 -- 创建teacher表
 drop table if exists teacher;
 create table teacher(
-    wchat_id varchar(20) not null primary key,
-    teacher_id varchar(20) not null,
+    teacher_id varchar(20) not null primary key,
     name varchar(200) default null,
     sex varchar(200) default null,
     age smallint default null,
@@ -25,8 +24,7 @@ create table task(
 -- 创建财务人员表
 drop table if exists finance;
 create table finance(
-    wchat_id varchar(20) not null primary key,
-    finance_id varchar(20) not null,
+    finance_id varchar(20) not null primary key,
     name varchar(200) default null,
     sex varchar(200) default null,
     age smallint default null
