@@ -52,19 +52,17 @@ def login():
         ret = {
             'success': True
         }
-        return json.dumps(ret, ensure_ascii=False)
     except AssertionError as e:
         ret = {
             'success': False,
             'msg': e,
         }
-        return json.dumps(ret, ensure_ascii=False)
     except LoginFailException as e:
         ret = {
             'success': False,
             'msg': str(e),
         }
-        return json.dumps(ret, ensure_ascii=False)
+    return json.dumps(ret, ensure_ascii=False)
 
 
 @views.route('/logout')
