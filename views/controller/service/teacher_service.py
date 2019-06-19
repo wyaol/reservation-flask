@@ -1,6 +1,6 @@
+from flask import  session
 from .db.teacher import TeacherDB
 from .db.config import TEACHER_TABLE_NAME
-from .session import Session
 
 
 class TeacherService:
@@ -29,8 +29,8 @@ class TeacherService:
         return False
 
     def login(self, teacher_id):
-        session = Session(teacher_id)
-        login_user(session)
+        session['id'] = teacher_id
+        print(session)
 
 
 teacher_service = TeacherService().instance

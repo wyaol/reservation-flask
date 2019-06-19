@@ -5,9 +5,9 @@ import config
 
 
 app = Flask(__name__)
+app.register_blueprint(views, url_prefix='/api')
 app.secret_key = '123456'
 app.permanent_session_lifetime = timedelta(days=1) #设置session的保存时间。
-app.register_blueprint(views, url_prefix='/api')
 
 
 @app.route('/')

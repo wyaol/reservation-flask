@@ -1,15 +1,19 @@
 import json
 import pymysql
-from flask import Blueprint, request
+from flask_login import login_required
+from flask import Blueprint, request, session
 from .controller.service.teacher_service import teacher_service
 from .controller.service.main_service import logout as service_logout
 from .controller import control
+from .controller.service.main_service import login_require
+from .controller.controller_exception import LoginFailException
 
 
 views = Blueprint('views',__name__)
 
 
 @views.route('/hello')
+@login_require
 def show():
     return 'views.hello'
 
@@ -42,15 +46,29 @@ def login():
     identity = request.form.get('identity')
     id = request.form.get('id')
     password = request.form.get('password')
-    assert id is not None or password is not None or identity is None, '传入参数不合法！'
-    control.login(identity, id, password)
-    ret = {
-        'success': True
-    }
-    return json.dumps(ret, ensure_ascii=False)
+    try:
+        assert id is not None or password is not None or identity is None, '传入参数不合法！'
+        control.login(identity, id, password)
+        ret = {
+            'success': True
+        }
+        return json.dumps(ret, ensure_ascii=False)
+    except AssertionError as e:
+        ret = {
+            'success': False,
+            'msg': e,
+        }
+        return json.dumps(ret, ensure_ascii=False)
+    except LoginFailException as e:
+        ret = {
+            'success': False,
+            'msg': e,
+        }
+        return json.dumps(ret, ensure_ascii=False)
 
 
 @views.route('/logout')
+@login_require
 def logout():
     service_logout()
     ret = {
