@@ -73,3 +73,24 @@ def logout():
         'success': True
     }
     return json.dumps(ret, ensure_ascii=False)
+
+
+@views.route('/login_test')
+def login_test():
+    try:
+        from .controller.service.teacher_service import teacher_service
+        teacher_service.login('123456')
+        ret = {
+            'success': True
+        }
+    except AssertionError as e:
+        ret = {
+            'success': False,
+            'msg': e,
+        }
+    except LoginFailException as e:
+        ret = {
+            'success': False,
+            'msg': str(e),
+        }
+    return json.dumps(ret, ensure_ascii=False)
