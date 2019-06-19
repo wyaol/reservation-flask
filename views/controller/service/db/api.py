@@ -16,7 +16,7 @@ class SQL:
         # 得到一个可以执行SQL语句的光标对象
         self.cursor = self.conn.cursor()
 
-    def insert(self, table_name,**kwargs):
+    def insert(self, table_name, **kwargs):
         sql = 'insert into %s (%s) values (%s)'%(table_name,
                                                  SQL.keys2str(list(kwargs.keys())),
                                                  SQL.values2str(list(kwargs.values())))
@@ -81,4 +81,4 @@ class SQL:
         pass
 
 
-sql = SQL().instance
+sql_client = SQL().instance
