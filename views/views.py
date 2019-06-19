@@ -62,7 +62,7 @@ def login():
     except LoginFailException as e:
         ret = {
             'success': False,
-            'msg': e,
+            'msg': str(e),
         }
         return json.dumps(ret, ensure_ascii=False)
 

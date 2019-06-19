@@ -30,7 +30,6 @@ class TeacherService:
 
     def login(self, teacher_id):
         session['id'] = teacher_id
-        print(session)
 
 
 teacher_service = TeacherService().instance
