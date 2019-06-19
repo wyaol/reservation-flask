@@ -1,4 +1,6 @@
 import json
+from .db.api import sql
+from .db.config import TEACHER_TABLE_NAME
 from functools import wraps
 from flask import  session
 
@@ -19,3 +21,8 @@ def login_require(func):
             })
         return func(*argvs, **kwargs)
     return  wrapper
+
+
+def register(identity, wchat_id, id):
+    if identity == 'teacher':
+        sql.insert(TEACHER_TABLE_NAME, wchat_id=wchat_id, teacher_id=id)
