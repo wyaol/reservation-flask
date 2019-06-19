@@ -26,6 +26,7 @@ class TeacherService:
         res_num = self.db.sql.select(TEACHER_TABLE_NAME, ['*'], teacher_id=teacher_id, password=password)
         if res_num != 1:
             return True
+        print(res_num)
         return False
 
     def login(self, teacher_id):
