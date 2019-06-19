@@ -20,10 +20,10 @@ class TeacherService:
         :param password:  用户密码
         :return:
         """
-        self.db.sql.insert(TEACHER_TABLE_NAME, teacher_id=teacher_id, password=password)
+        self.db.sql_client.insert(TEACHER_TABLE_NAME, teacher_id=teacher_id, password=password)
 
     def check_login(self, teacher_id, password):
-        res_num = self.db.sql.select(TEACHER_TABLE_NAME, ['*'], teacher_id=teacher_id, password=password)
+        res_num = self.db.sql_client.select(TEACHER_TABLE_NAME, ['*'], teacher_id=teacher_id, password=password)
         if res_num != 1:
             print(res_num)
             return False
