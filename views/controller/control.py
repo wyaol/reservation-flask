@@ -1,12 +1,18 @@
 from .service.teacher_service import teacher_service
-from .controller_exception import LoginFailException
+from .service import main_service
+from .controller_exception import IdentityNotExistException
 
 
-def login(identity: str, id, password):
+def login(code):
+    open_id = main_service.get_open_id(code)
+    teacher_id = teacher_service.get_teacher_id(open_id)
+    if teacher_id is not None:
+        teacher_service.login(open_id=open_id, teacher_id=teacher_id)
+        return True
+    return False
+
+
+def register(identity, id):
     if identity == 'teacher':
-        if teacher_service.check_login(id, password) is True:
-            teacher_service.login(id)
-        else:
-            raise LoginFailException( msg='登录错误 当前用户名%s 当前密码%s'%(id, password) )
-    else:
-        print(identity)
+        return teacher_service.register(id)
+    raise IdentityNotExistException('identity not found, your identity is%s'%identity)

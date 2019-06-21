@@ -13,24 +13,23 @@ class TeacherService:
     def __init__(self):
         self.db = TeacherDB()
 
-    def register(self, teacher_id, password):
+    def register(self, teacher_id):
         """
         注册用户
         :param teacher_id: 用户工号
-        :param password:  用户密码
         :return:
         """
-        self.db.sql_client.insert(TEACHER_TABLE_NAME, teacher_id=teacher_id, password=password)
+        open_id = session['open_id']
+        return self.db.sql_client.insert(TEACHER_TABLE_NAME, teacher_id=teacher_id, open_id = open_id)
 
-    def check_login(self, teacher_id, password):
-        res_num = self.db.sql_client.select(TEACHER_TABLE_NAME, ['*'], teacher_id=teacher_id, password=password)
-        if res_num != 1:
-            print(res_num)
-            return False
-        return True
-
-    def login(self, teacher_id):
+    def login(self, teacher_id, open_id):
         session['id'] = teacher_id
+        session['open_id'] = open_id
 
+    def get_teacher_id(self, open_id):
+        data = self.db.sql_client.select(TEACHER_TABLE_NAME, ['teacher_id'], open_id=open_id)
+        if len(data) == 0:
+            return None
+        return data[0][0]
 
 teacher_service = TeacherService().instance

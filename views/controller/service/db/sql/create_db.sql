@@ -1,7 +1,8 @@
 -- 创建teacher表
 drop table if exists teacher;
 create table teacher(
-    teacher_id varchar(20) not null primary key,
+    open_id varchar(30) not null,
+    teacher_id varchar(20) not null,
     name varchar(200) default null,
     sex varchar(200) default null,
     age smallint default null,

@@ -29,7 +29,9 @@ class SQL:
 
     def select(self, table_name: str, argvs: list, **kwargs):
         sql = 'select %s from %s where %s'%(SQL.keys2str(argvs), table_name, SQL.dict2str(kwargs))
-        return self.cursor.execute(sql)
+        self.cursor.execute(sql)
+        data = self.cursor.fetchall()
+        return data
 
     @staticmethod
     def keys2str(keys: list, connector: str=', '):
