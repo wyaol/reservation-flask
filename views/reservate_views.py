@@ -5,7 +5,7 @@
 # @File : reservate_views.py
 import json
 from flask import Blueprint, request, session
-from .controller.service import main_service
+from .controller import control
 
 
 reservate_views = Blueprint('reservate_views', __name__)
@@ -16,7 +16,7 @@ def reservate():
     posts = request.form
     date = posts.get('calendar')
     time = posts.get('time')
-    main_service.reservate(date, time)
+    control.reservate(date, time)
     ret = {
         'success': True,
     }
