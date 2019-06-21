@@ -21,7 +21,6 @@ def show():
 def register():
     identity = request.form.get('identity')
     id = request.form.get('id')
-    print(request.form)
     assert id is not None and identity is not None, '传入参数不合法！'
     main_service.register(identity, id)
     ret = {
