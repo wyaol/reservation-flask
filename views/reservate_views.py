@@ -13,11 +13,12 @@ reservate_views = Blueprint('reservate_views', __name__)
 
 @reservate_views.route('/reservate', methods = ['POST'])
 def reservate():
+    print(request.headers)
     print(session)
     posts = request.form
     date = posts.get('calendar')
     time = posts.get('time')
-    main_service.reservate(date, time)
+    #main_service.reservate(date, time)
     ret = {
         'success': True,
     }
