@@ -22,9 +22,8 @@ class TeacherService:
         open_id = session['open_id']
         return self.db.sql_client.insert(TEACHER_TABLE_NAME, teacher_id=teacher_id, open_id = open_id)
 
-    def login(self, teacher_id, open_id):
+    def login(self, teacher_id):
         session['id'] = teacher_id
-        session['open_id'] = open_id
 
     def get_teacher_id(self, open_id):
         data = self.db.sql_client.select(TEACHER_TABLE_NAME, ['teacher_id'], open_id=open_id)
