@@ -4,7 +4,7 @@
 # @Author : wyao
 # @File : reservate_views.py
 import json
-from flask import Blueprint, request
+from flask import Blueprint, request, session
 from .controller.service import main_service
 
 
@@ -13,6 +13,7 @@ reservate_views = Blueprint('reservate_views', __name__)
 
 @reservate_views.route('/reservate', methods = ['POST'])
 def reservate():
+    print(session)
     posts = request.form
     date = posts.get('calendar')
     time = posts.get('time')
