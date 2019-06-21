@@ -4,7 +4,7 @@
 # @Author : wyao
 # @File : identity_control_view.py
 import json
-from flask import Blueprint, request
+from flask import Blueprint, request, session
 from .controller import control
 from .controller.controller_exception import IdentityNotExistException
 from .controller.service.service_exception import GetOpenIdException
@@ -42,6 +42,8 @@ def register():
     posts = request.form
     identity = posts.get('identity')
     id = posts.get('id')
+    print(request.headers)
+    print(session['open_id'])
     try:
         control.register(identity, id)
         ret = {
