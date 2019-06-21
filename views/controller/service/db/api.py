@@ -28,6 +28,13 @@ class SQL:
         self.conn.commit()
 
     def select(self, table_name: str, argvs: list, **kwargs):
+        """
+        简单查询数据库，返回所有记录
+        :param table_name: 表名
+        :param argvs: 选择的字段
+        :param kwargs: where限定条件
+        :return: 记录 二维元组
+        """
         sql = 'select %s from %s where %s'%(SQL.keys2str(argvs), table_name, SQL.dict2str(kwargs))
         self.cursor.execute(sql)
         data = self.cursor.fetchall()

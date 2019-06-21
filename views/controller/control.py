@@ -19,3 +19,8 @@ def register(identity, id):
         return teacher_service.register(id)
     raise IdentityNotExistException('identity not found, your identity is %s'%identity)
 
+
+def reservate(date:str, time: str):
+    if main_service.is_reservated(date, time) is not True:
+        return main_service.reservate(date, time)
+    return None

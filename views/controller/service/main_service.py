@@ -46,3 +46,8 @@ def reservate(date: str, time: str):
     return sql_client.insert(config.TASK_TABLE_NAME, reservate_time='%s %s'%(date, time),
                               teacher_id=session['id']
                              )
+
+def is_reservated(date, time):
+    res_data = sql_client.select(config.TASK_TABLE_NAME, ['*'], teacher_id=session['id'],
+                      reservate_time='%s %s'%(date, time))
+    return True if len(res_data) != 0 else False
