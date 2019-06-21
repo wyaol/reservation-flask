@@ -42,8 +42,6 @@ def register():
     posts = request.form
     identity = posts.get('identity')
     id = posts.get('id')
-    print(request.headers)
-    print(session['open_id'])
     try:
         control.register(identity, id)
         ret = {

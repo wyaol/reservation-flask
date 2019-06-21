@@ -42,5 +42,7 @@ def get_open_id(code):
         raise GetOpenIdException('get open_id error return value is %s, system return is %s'%(json_str, str(e)))
 
 
-def get_reservation():
-    pass
+def reservate(date: str, time: str):
+    return sql_client.insert(config.TASK_TABLE_NAME, reservate_time='%s %s'%(date, time),
+                              teacher_id=session['id']
+                             )

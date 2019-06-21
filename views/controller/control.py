@@ -18,3 +18,4 @@ def register(identity, id):
     if identity == 'teacher':
         return teacher_service.register(id)
     raise IdentityNotExistException('identity not found, your identity is %s'%identity)
+

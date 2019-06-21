@@ -5,6 +5,7 @@
 # CHARSET = 'utf-8'
 
 TEACHER_TABLE_NAME = 'teacher'
+TASK_TABLE_NAME = 'task'
 
 GET_OPEN_ID_URL = 'https://api.weixin.qq.com/sns/jscode2session?appid=%s&secret=%s&js_code=%s&grant_type=authorization_code'
 APPID = 'wx8070ed63f06f4d9c'
