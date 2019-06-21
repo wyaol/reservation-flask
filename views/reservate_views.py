@@ -16,7 +16,7 @@ def reservate():
     posts = request.form
     date = posts.get('calendar')
     time = posts.get('time')
-    main_service.register(date, time)
+    main_service.reservate(date, time)
     ret = {
         'success': True,
     }
