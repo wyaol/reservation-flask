@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from flask import Flask
 from views.identity_control_views import identity_control_views
 from datetime import timedelta
@@ -8,7 +7,7 @@ import config
 app = Flask(__name__)
 app.register_blueprint(identity_control_views, url_prefix='/api/identity')
 app.secret_key = '123456'
-app.permanent_session_lifetime = timedelta(days=30) #设置session的保存时间。
+app.permanent_session_lifetime = timedelta(days=1) #设置session的保存时间。
 
 
 @app.route('/')

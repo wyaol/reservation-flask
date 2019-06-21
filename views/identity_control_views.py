@@ -30,7 +30,7 @@ def login():
     return json.dumps(ret, ensure_ascii=False)
 
 
-@identity_control_views.route('/register', method=['POST'])
+@identity_control_views.route('/register', methods=['POST'])
 def register():
     posts = request.form
     identity = posts.get('identity')
