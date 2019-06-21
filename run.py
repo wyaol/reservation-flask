@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from flask import Flask
 from views.identity_control_views import identity_control_views
 from datetime import timedelta
