@@ -4,6 +4,7 @@ from .db.api import sql_client
 from .db import config
 from functools import wraps
 from flask import  session
+from .service_exception import GetOpenIdException
 
 
 def logout():
@@ -32,10 +33,13 @@ def register(identity, id):
 
 
 def get_open_id(code):
-    url = config.GET_OPEN_ID_URL % (code, config.APPID, config.SECRET)
+    url = config.GET_OPEN_ID_URL % (config.APPID, config.SECRET, code)
     page = requests.get(url)
     json_str = page.text
-    return eval(json_str)['openid']
+    try:
+        return eval(json_str)['openid']
+    except Exception as e:
+        raise GetOpenIdException('get open_id error return value is %s, system return is %s'%(json_str, str(e)))
 
 
 def get_reservation():

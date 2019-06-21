@@ -7,6 +7,7 @@ import json
 from flask import Blueprint, request
 from .controller import control
 from .controller.controller_exception import IdentityNotExistException
+from .controller.service.service_exception import GetOpenIdException
 
 
 identity_control_views = Blueprint('identity_control_views',__name__)
@@ -16,16 +17,22 @@ identity_control_views = Blueprint('identity_control_views',__name__)
 def login():
     get_args = request.args
     code = get_args.get('code')
-    if control.login(code):
-        ret = {
-            'success': True,
-            'is_register': True
-        }
-    else:
+    try:
+        if control.login(code):
+            ret = {
+                'success': True,
+                'is_register': True
+            }
+        else:
+            ret = {
+                'success': True,
+                'is_register': False,
+                'msg': '该用户未绑定'
+            }
+    except GetOpenIdException as e:
         ret = {
             'success': False,
-            'is_register': False,
-            'msg': '该用户未绑定'
+            'msg': str(e)
         }
     return json.dumps(ret, ensure_ascii=False)
 
