@@ -51,3 +51,15 @@ def is_reservated(date, time):
     res_data = sql_client.select(config.TASK_TABLE_NAME, ['*'], teacher_id=session['id'],
                       reservate_time='%s %s'%(date, time))
     return True if len(res_data) != 0 else False
+
+def reservate_info(date: str):
+    """
+    查询某个日期
+    :param date: 某个日期
+    :return: list 数组 存储每条记录字典
+    """
+    res_data = sql_client.cursor.execute("select reservate_time, count(*) reservated_num "
+                                         "from task "
+                                         "where to_days(reservate_time) = to_days('%s') "
+                                         "group by reservate_time"%date)
+    return [{'reservate_time': e[0], 'reservate_num': e[1]} for e in res_data]
