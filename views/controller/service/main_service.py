@@ -65,4 +65,4 @@ def reservate_info(date: str):
     sql_client.cursor.execute(sql_str)
     print(sql_str)
     res_data = sql_client.cursor.fetchall()
-    return [{'reservate_time': e[0], 'reservate_num': e[1]} for e in res_data]
+    return [{'reservate_time': e[0].strftime('%m-%d-%Y %H:%M:%S'), 'reservate_num': e[1]} for e in res_data]
