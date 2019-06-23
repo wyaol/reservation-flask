@@ -32,4 +32,5 @@ def reservate_info():
         'success': True,
         'reservated': res_data
     }
+    print(res_data)
     return json.dumps(ret, ensure_ascii=False)
