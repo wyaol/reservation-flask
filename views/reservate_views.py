@@ -24,7 +24,7 @@ def reservate():
     return json.dumps(ret, ensure_ascii=False)
 
 @reservate_views.route('/reservate_info', methods = ['GET'])
-def reservate():
+def reservate_info():
     posts = request.args
     date = posts.get('date')
     res_data = main_service.reservate_info(date)

@@ -58,8 +58,9 @@ def reservate_info(date: str):
     :param date: 某个日期
     :return: list 数组 存储每条记录字典
     """
-    res_data = sql_client.cursor.execute("select reservate_time, count(*) reservated_num "
+    sql_client.cursor.execute("select reservate_time, count(*) reservated_num "
                                          "from task "
                                          "where to_days(reservate_time) = to_days('%s') "
                                          "group by reservate_time"%date)
+    res_data = sql_client.cursor.fetchall()
     return [{'reservate_time': e[0], 'reservate_num': e[1]} for e in res_data]
