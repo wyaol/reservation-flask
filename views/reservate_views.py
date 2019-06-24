@@ -17,7 +17,7 @@ def reservate():
     posts = request.form
     date = posts.get('calendar')
     time = posts.get('time')
-    control.reservate(date, time)
+    control.reservate(date, time, session['id'])
     ret = {
         'success': True,
     }
@@ -28,6 +28,16 @@ def reservate_info():
     posts = request.args
     date = posts.get('date')
     res_data = main_service.reservate_info(date)
+    ret = {
+        'success': True,
+        'reservated': res_data
+    }
+    return json.dumps(ret, ensure_ascii=False)
+
+
+@reservate_views.route('/reservate_teacher', methods = ['GET'])
+def reservate_teacher():
+    res_data = main_service.reservate_teacher(session['id'])
     ret = {
         'success': True,
         'reservated': res_data

@@ -3,13 +3,8 @@ import requests
 from .db.api import sql_client
 from .db import config
 from functools import wraps
-from flask import  session
+from flask import session
 from .service_exception import GetOpenIdException
-
-
-def logout():
-    session.clear()
-    return 'Logged out successfully!'
 
 
 def login_require(func):
@@ -42,15 +37,17 @@ def get_open_id(code):
         raise GetOpenIdException('get open_id error return value is %s, system return is %s'%(json_str, str(e)))
 
 
-def reservate(date: str, time: str):
+def reservate(date: str, time: str, id):
     return sql_client.insert(config.TASK_TABLE_NAME, reservate_time='%s %s'%(date, time),
-                              teacher_id=session['id']
+                              teacher_id=id
                              )
+
 
 def is_reservated(date, time):
     res_data = sql_client.select(config.TASK_TABLE_NAME, ['*'], teacher_id=session['id'],
                       reservate_time='%s %s'%(date, time))
     return True if len(res_data) != 0 else False
+
 
 def reservate_info(date: str):
     """
@@ -67,3 +64,9 @@ def reservate_info(date: str):
     res_list = [{'reservate_time': e[0].strftime('%Y-%m-%d %H:%M:%S'), 'reservate_forbid':True }
             if int(e[1]) >= config.MAX_TASK_NUM else None for e in res_data]
     return list(filter(None, res_list))
+
+
+def reservate_teacher(id):
+    teacher_id = id
+    res_data = sql_client.select(config.TASK_TABLE_NAME, ['reservate_time', 'status'], teacher_id=teacher_id)
+    return [{'reservate_time': e[0].strftime('%Y-%m-%d %H:%M:%S'), 'state': e[1]} for e in res_data]

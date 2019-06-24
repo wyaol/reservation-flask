@@ -20,7 +20,7 @@ def register(identity, id):
     raise IdentityNotExistException('identity not found, your identity is %s'%identity)
 
 
-def reservate(date:str, time: str):
+def reservate(date:str, time: str, id):
     if main_service.is_reservated(date, time) is not True:
-        return main_service.reservate(date, time)
+        return main_service.reservate(date, time, id)
     return None
