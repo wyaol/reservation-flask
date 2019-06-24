@@ -81,7 +81,7 @@ def get_info():
         ret = control.get_info(session['id'], session['identity'])
         ret = {
             'success': True,
-            'msg': str(ret)
+            'msg': ret
         }
     except IdentityNotExistException as e:
         ret = {

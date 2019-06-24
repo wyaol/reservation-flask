@@ -55,5 +55,5 @@ def set_info(id, name, sex, phone_number):
 
 def get_info(id, identity):
     if identity == 'teacher':
-        return  teacher_service.get_teacher_id(id)
+        return  teacher_service.get_info(id)
     raise IdentityNotExistException('identity not found, your identity is %s' % identity)
