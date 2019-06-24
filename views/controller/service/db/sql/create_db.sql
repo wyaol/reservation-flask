@@ -15,6 +15,7 @@ create table teacher(
 -- 创建 task 表
 drop table if exists task;
 create table task(
+    open_id varchar(30) not null,
     task_id int not null primary key AUTO_INCREMENT,
     teacher_id varchar(20) default null,
     finance_id varchar(20) default null,

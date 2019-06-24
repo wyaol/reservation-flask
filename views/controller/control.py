@@ -1,23 +1,31 @@
 from flask import session
 from .service.teacher_service import teacher_service
+from .service.finance_service import finance_service
 from .service import main_service
 from .controller_exception import IdentityNotExistException
 
 
 def login(code):
     open_id = main_service.get_open_id(code)
-    teacher_id = teacher_service.get_teacher_id(open_id)
     session['open_id'] = open_id
+    teacher_id = teacher_service.get_teacher_id(open_id)
     if teacher_id is not None:
         session['identity'] = 'teacher'
         session['id'] = teacher_id
         return True
+    finance_id = finance_service.get_finance_id(open_id)
+    if finance_id is not None:
+        session['identity'] = 'finance'
+        session['id'] = finance_id
+        return True
     return False
 
 
-def register(identity, id):
+def register(identity, id, open_id):
     if identity == 'teacher':
-        return teacher_service.register(id)
+        return teacher_service.register(id, open_id)
+    elif identity == 'finance':
+        return finance_service.register(id, open_id)
     raise IdentityNotExistException('identity not found, your identity is %s'%identity)
 
 

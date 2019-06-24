@@ -43,7 +43,7 @@ def register():
     identity = posts.get('identity')
     id = posts.get('id')
     try:
-        control.register(identity, id)
+        control.register(identity, id, session['open_id'])
         ret = {
             'success': True,
         }
