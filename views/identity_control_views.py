@@ -61,6 +61,7 @@ def set_info():
     name = posts.get('name')
     sex = posts.get('sex')
     phone_number = posts.get('phone_number')
+    print(posts)
     try:
         ret = control.set_info(session['id'], name, sex, phone_number)
         ret = {

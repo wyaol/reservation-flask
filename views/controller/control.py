@@ -42,11 +42,12 @@ def set_info(id, name, sex, phone_number):
             'teacher_id': id
         }
         set = {}
-        if name != None:
+        assert name is not None or sex is not None or phone_number is not None
+        if name is not None:
             set['name'] = name
-        if sex != None:
+        if sex is not None:
             set['sex'] = sex
-        if phone_number != None:
+        if phone_number is not None:
             set['phone_number'] = phone_number
         return teacher_service.set_info(where=where, set=set)
     raise IdentityNotExistException('identity not found, your identity is %s'%identity)
