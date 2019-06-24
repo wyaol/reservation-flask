@@ -68,5 +68,5 @@ def reservate_info(date: str):
 
 def reservate_teacher(id):
     teacher_id = id
-    res_data = sql_client.select(config.TASK_TABLE_NAME, ['reservate_time', 'status'], teacher_id=teacher_id)
+    res_data = sql_client.select(config.TASK_TABLE_NAME, ['reservate_time', 'state'], teacher_id=teacher_id)
     return [{'reservate_time': e[0].strftime('%Y-%m-%d %H:%M:%S'), 'state': e[1]} for e in res_data]

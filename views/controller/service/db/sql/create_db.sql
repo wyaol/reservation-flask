@@ -20,7 +20,7 @@ create table task(
     finance_id varchar(20) default null,
     reservate_time timestamp null,
     actual_time timestamp null,
-    status varchar(200) default '待完成'
+    state varchar(200) default '待完成'
 );
 
 -- 创建财务人员表
