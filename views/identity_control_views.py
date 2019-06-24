@@ -53,3 +53,39 @@ def register():
             'msg': str(e)
         }
     return json.dumps(ret, ensure_ascii=False)
+
+
+@identity_control_views.route('/set_info', methods=['POST'])
+def set_info():
+    posts = request.form
+    name = posts.get('name')
+    sex = posts.get('sex')
+    phone_number = posts.get('phone_number')
+    try:
+        ret = control.set_info(session['id'], name, sex, phone_number)
+        ret = {
+            'success': True,
+            'msg': str(ret)
+        }
+    except IdentityNotExistException as e:
+        ret = {
+            'success': False,
+            'msg': str(e)
+        }
+    return json.dumps(ret, ensure_ascii=False)
+
+
+@identity_control_views.route('/get_info', methods=['GET'])
+def get_info():
+    try:
+        ret = control.get_info(session['id'], session['identity'])
+        ret = {
+            'success': True,
+            'msg': str(ret)
+        }
+    except IdentityNotExistException as e:
+        ret = {
+            'success': False,
+            'msg': str(e)
+        }
+    return json.dumps(ret, ensure_ascii=False)

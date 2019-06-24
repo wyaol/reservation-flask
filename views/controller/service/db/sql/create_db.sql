@@ -6,6 +6,7 @@ create table teacher(
     name varchar(200) default null,
     sex varchar(200) default null,
     age smallint default null,
+    phone_number int default null,
     college varchar(200) default null,
     credit smallint default 0,
     pub_date timestamp null DEFAULT CURRENT_TIMESTAMP
