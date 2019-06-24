@@ -24,6 +24,7 @@ class SQL:
 
     def update(self, table_name: str, set: dict, where: dict):
         sql = 'update %s set %s where %s'%(table_name, SQL.dict2str(set, ', '), SQL.dict2str(where))
+        print(sql)
         self.cursor.execute(sql)
         self.conn.commit()
 
