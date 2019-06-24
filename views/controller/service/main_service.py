@@ -63,6 +63,6 @@ def reservate_info(date: str):
               "where to_days(reservate_time) = to_days('%s') " \
               "group by reservate_time"%date
     sql_client.cursor.execute(sql_str)
-    print(sql_str)
     res_data = sql_client.cursor.fetchall()
-    return [{'reservate_time': e[0].strftime('%m-%d-%Y %H:%M:%S'), 'reservate_num': e[1]} for e in res_data]
+    return [{'reservate_time': e[0].strftime('%Y-%m-%d %H:%M:%S'), 'reservate_forbid':True }
+            if int(e[1]) >= config.MAX_TASK_NUM else None for e in res_data].remove(None)
