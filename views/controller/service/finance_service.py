@@ -22,5 +22,8 @@ class FinancService:
     def register(self, finance_id, open_id):
         return self.sql_client.insert(self.db_name, finance_id=finance_id, open_id=open_id)
 
+    def get_task(self, finance_id):
+        sql = ''
+        return self.sql_client.update(sql)
 
 finance_service = FinancService()

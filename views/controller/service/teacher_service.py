@@ -38,7 +38,9 @@ class TeacherService:
         return self.sql_client.update(self.db_name, set=set, where=where)
 
     def get_info(self, id):
-        return self.sql_client.select(self.db_name, ['name', 'sex', 'phone_number'], teacher_id=id)
+        res_data = self.sql_client.select(self.db_name, ['name', 'sex', 'phone_number'], teacher_id=id)
+        print(res_data)
+        return {'name': res_data[0][0], 'sex': res_data[0][1], 'phone_number': res_data[0][2]}
 
 
 teacher_service = TeacherService().instance
