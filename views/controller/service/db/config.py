@@ -16,3 +16,5 @@ USER = 'root'
 PASSWORD = 'wyao161211'
 DATABASE = 'reservation'
 CHARSET = 'utf-8'
+
+MAX_TASK_NUM = 2
