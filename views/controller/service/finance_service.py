@@ -22,7 +22,12 @@ class FinancService:
     def register(self, finance_id, open_id):
         return self.sql_client.insert(self.db_name, finance_id=finance_id, open_id=open_id)
 
-    def get_task(self, finance_id):
+    def get_task(self, finance_id: str) -> str:
+        """
+        从当天任务队列中取出一个任务 返回信息msg
+        :param finance_id:
+        :return:
+        """
         sql = 'SELECT task_id from task where to_days(reservate_time) = to_days(now()) and finance_id is null limit 1'
         try:
             self.sql_client.cursor.execute(sql)
@@ -33,10 +38,18 @@ class FinancService:
             self.sql_client.cursor.execute(sql2)
         except Exception as e:
             self.sql_client.conn.rollback()  # 事务回滚
-            print('事务处理失败', e)
+            msg = '事务处理失败 %s'%e
         else:
             self.sql_client.conn.commit()  # 事务提交
-            print('事务处理成功', self.sql_client.cursor.rowcount)  # 关闭连接
-        return
+            msg = '事务处理成功 %s'%self.sql_client.cursor.rowcount  # 关闭连接
+        return msg
+
+    def task_done(self, finance_id):
+        return self.sql_client.update(self.db_name, set={
+            'state': '已完成'
+        }, where={
+            'finance_id': finance_id,
+            'state': '进行中'
+        })
 
 finance_service = FinancService()
