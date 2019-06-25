@@ -7,7 +7,7 @@ import json
 from flask import Blueprint, request, session
 from .controller.service.finance_service import finance_service
 from .controller.controller_exception import IdentityNotExistException
-from .controller.service.service_exception import GetOpenIdException
+from .controller.service.service_exception import NoTaskException
 
 
 work_views = Blueprint('work_views',__name__)
@@ -23,8 +23,16 @@ def task_done():
 
 @work_views.route('/get_task', methods=['GET'])
 def get_task():
-    msg = finance_service.get_task(session['id'])
-    return json.dumps({
-        'success': True,
-        'msg': msg
-    }, ensure_ascii=False)
+    try:
+        msg = finance_service.get_task(session['id'])
+        return json.dumps({
+            'success': True,
+            'task_empty': False,
+            'msg': msg
+        }, ensure_ascii=False)
+    except NoTaskException:
+        return json.dumps({
+            'success': True,
+            'task_empty': True,
+            'msg': '所有任务已完成， 当前无任务'
+        }, ensure_ascii=False)

@@ -5,6 +5,7 @@
 # @File : finance_service.py
 from .db import config
 from .db.api import sql_client
+from .service_exception import NoTaskException
 
 
 class FinancService:
@@ -32,6 +33,8 @@ class FinancService:
         try:
             self.sql_client.cursor.execute(sql)
             res_data = self.sql_client.cursor.fetchall()
+            if len(res_data) == 0:
+                raise NoTaskException()
             print(res_data)
             sql2 = "update task set finance_id='%s', state='%s' where task_id='%s'"%(finance_id, '进行中', res_data[0][0])
             print(sql2)
