@@ -9,3 +9,6 @@ chmod 777 operate.sh
 msyql 创建数据库 reservation
 chmod 777 install.sh
 ./install.sh
+
+#### 配置发送邮件服务
+修改views/controller/service/config.py 中EMAIL开头的信息

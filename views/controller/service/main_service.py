@@ -1,10 +1,13 @@
 import json
 import requests
+import smtplib
+from email.mime.text import MIMEText   # 导入模块
 from .db.api import sql_client
 from .db import config
 from functools import wraps
 from flask import session
 from .service_exception import GetOpenIdException
+from . import config
 
 
 def login_require(func):
@@ -70,3 +73,27 @@ def reservate_teacher(id):
     teacher_id = id
     res_data = sql_client.select(config.TASK_TABLE_NAME, ['reservate_time', 'state'], teacher_id=teacher_id)
     return [{'reservate_time': e[0].strftime('%Y-%m-%d %H:%M:%S'), 'state': e[1]} for e in res_data]
+
+
+def send_emil(recv: str, content: str,
+               title=config.EMAIL_TITLE, username=config.EMAIL_USERNAME, passwd=config.EMAIL_PASSWORD,
+               mail_host=config.EMAIL_HOST, port=config.EMAIL_PORT):
+    """
+    :param recv: 收件者邮箱地址 例如123456@qq.com
+    :param content: 邮件文本内容
+    :param title:
+    :param username:
+    :param passwd:
+    :param mail_host:
+    :param port:
+    :return:
+    """
+    msg = MIMEText(content)  # 邮件内容
+    msg['Subject'] = title
+    msg['From'] = username
+    msg['To'] = recv
+    smtp = smtplib.SMTP_SSL(mail_host, port=port)  # 定义邮箱服务类型
+    smtp.login(username, passwd)  # 登录邮箱
+    smtp.sendmail(username, recv, msg.as_string())  # 发送邮件
+    smtp.quit()
+    return True
