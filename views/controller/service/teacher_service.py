@@ -39,7 +39,7 @@ class TeacherService:
 
     def get_info(self, id):
         res_data = self.sql_client.select(self.db_name, ['name', 'sex', 'phone_number'], teacher_id=id)
-        print(res_data)
+        # print(res_data)
         return {'name': res_data[0][0], 'sex': res_data[0][1], 'phone_number': res_data[0][2]}
 
 

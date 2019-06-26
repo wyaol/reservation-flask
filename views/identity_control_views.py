@@ -21,7 +21,8 @@ def login():
         if control.login(code):
             ret = {
                 'success': True,
-                'is_register': True
+                'is_register': True,
+                'identity': session['identity']
             }
         else:
             ret = {

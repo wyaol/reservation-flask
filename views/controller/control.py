@@ -56,6 +56,8 @@ def set_info(id, name, sex, phone_number):
 def get_info(id, identity):
     if identity == 'teacher':
         return  teacher_service.get_info(id)
+    # elif identity == 'finance':
+    #     return
     raise IdentityNotExistException('identity not found, your identity is %s' % identity)
 
 def get_task(finance_id: str):
