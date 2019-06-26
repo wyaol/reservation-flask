@@ -27,9 +27,11 @@ def set_session(identity, id):
 def register(identity, id, open_id):
     if identity == 'teacher':
         set_session('teacher', id)
+        print(session['id'])
         return teacher_service.register(id, open_id)
     elif identity == 'finance':
         set_session('finance', id)
+        print(session['id'])
         return finance_service.register(id, open_id)
     raise IdentityNotExistException('identity not found, your identity is %s'%identity)
 
