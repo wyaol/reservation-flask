@@ -100,5 +100,5 @@ def send_emil(recv: str, content: str,
     return True
 
 
-def reservate_del(date: str, time: str, teacher_id: str):
-    sql_client.delete(config.TASK_TABLE_NAME, teacher_id=teacher_id, reservate_time='%s %s'%(date, time))
+def reservate_del(reservate_time: str, teacher_id: str):
+    sql_client.delete(config.TASK_TABLE_NAME, teacher_id=teacher_id, reservate_time=reservate_time)

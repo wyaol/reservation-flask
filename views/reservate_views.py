@@ -44,12 +44,12 @@ def reservate_teacher():
     }
     return json.dumps(ret, ensure_ascii=False)
 
+
 @reservate_views.route('/reservate_del', methods = ['POST'])
 def reservate_del():
     posts = request.form
-    date = posts.get('date')
-    time = posts.get('time')
-    main_service.reservate_del(date, time, session['id'])
+    reservate_time = posts.get('reservate_time')
+    main_service.reservate_del(reservate_time, session['id'])
     ret = {
         'success': True,
     }
