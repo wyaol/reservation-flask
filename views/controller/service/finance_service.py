@@ -30,21 +30,21 @@ class FinancService:
         :return:
         """
         sql = 'SELECT task_id from task where to_days(reservate_time) = to_days(now()) and finance_id is null limit 1'
-        try:
-            self.sql_client.cursor.execute(sql)
-            res_data = self.sql_client.cursor.fetchall()
-            if len(res_data) == 0:
-                raise NoTaskException()
-            print(res_data)
-            sql2 = "update task set finance_id='%s', state='%s' where task_id='%s'"%(finance_id, '进行中', res_data[0][0])
-            print(sql2)
-            self.sql_client.cursor.execute(sql2)
-        except Exception as e:
-            self.sql_client.conn.rollback()  # 事务回滚
-            msg = '事务处理失败 %s'%e
-        else:
-            self.sql_client.conn.commit()  # 事务提交
-            msg = '事务处理成功 %s'%self.sql_client.cursor.rowcount  # 关闭连接
+        # try:
+        self.sql_client.cursor.execute(sql)
+        res_data = self.sql_client.cursor.fetchall()
+        if len(res_data) == 0:
+            raise NoTaskException()
+        print(res_data)
+        sql2 = "update task set finance_id='%s', state='%s' where task_id='%s'"%(finance_id, '进行中', res_data[0][0])
+        print(sql2)
+        self.sql_client.cursor.execute(sql2)
+    # except Exception as e:
+    #     self.sql_client.conn.rollback()  # 事务回滚
+    #     msg = '事务处理失败 %s'%e
+    # else:
+        self.sql_client.conn.commit()  # 事务提交
+        msg = '事务处理成功 %s'%self.sql_client.cursor.rowcount  # 关闭连接
         return msg
 
     def task_done(self, finance_id):
