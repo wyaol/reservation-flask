@@ -98,3 +98,7 @@ def send_emil(recv: str, content: str,
     smtp.sendmail(username, recv, msg.as_string())  # 发送邮件
     smtp.quit()
     return True
+
+
+def reservate_del(date: str, time: str, teacher_id: str):
+    sql_client.delete(config.TASK_TABLE_NAME, teacher_id=teacher_id, reservate_time='%s %s'%(date, time))
