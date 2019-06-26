@@ -16,7 +16,7 @@ HOST = '123.207.27.133'
 USER = 'root'
 PASSWORD = 'wyao161211'
 DATABASE = 'reservation'
-CHARSET = 'utf-8'
+CHARSET = 'utf8'
 
 READ_TIMEOUT = 5
 WRITE_TIMEOUT = 5
