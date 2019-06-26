@@ -10,21 +10,26 @@ def login(code):
     session['open_id'] = open_id
     teacher_id = teacher_service.get_teacher_id(open_id)
     if teacher_id is not None:
-        session['identity'] = 'teacher'
-        session['id'] = teacher_id
+        set_session('teacher', teacher_id)
         return True
     finance_id = finance_service.get_finance_id(open_id)
     if finance_id is not None:
-        session['identity'] = 'finance'
-        session['id'] = finance_id
+        set_session('finance', finance_id)
         return True
     return False
 
 
+def set_session(identity, id):
+    session['identity'] = identity
+    session['id'] = id
+
+
 def register(identity, id, open_id):
     if identity == 'teacher':
+        set_session('teacher', id)
         return teacher_service.register(id, open_id)
     elif identity == 'finance':
+        set_session('finance', id)
         return finance_service.register(id, open_id)
     raise IdentityNotExistException('identity not found, your identity is %s'%identity)
 
