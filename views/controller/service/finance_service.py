@@ -25,11 +25,11 @@ class FinancService:
 
     def get_task(self, finance_id: str) -> str:
         """
-        从当天任务队列中取出一个任务 返回信息msg
+        从当天任务队列中取出一个任务 返回教师id
         :param finance_id: 财务人员id
-        :return:
+        :return: 返回教师id
         """
-        sql = 'SELECT task_id from task where to_days(reservate_time) = to_days(now()) and finance_id is null limit 1'
+        sql = 'SELECT task_id, teacher_id from task where to_days(reservate_time) = to_days(now()) and finance_id is null limit 1'
         # try:
         self.sql_client.cursor.execute(sql)
         res_data = self.sql_client.cursor.fetchall()
@@ -44,8 +44,7 @@ class FinancService:
     #     msg = '事务处理失败 %s'%e
     # else:
         self.sql_client.conn.commit()  # 事务提交
-        msg = '任务领取成功 %s'%self.sql_client.cursor.rowcount  # 关闭连接
-        return msg
+        return res_data[0][1]
 
     def task_done(self, finance_id):
         return self.sql_client.update(config.TASK_TABLE_NAME, set={

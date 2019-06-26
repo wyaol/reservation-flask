@@ -43,8 +43,10 @@ def register():
     posts = request.form
     identity = posts.get('identity')
     id = posts.get('id')
+    name = posts.get('name')
+    email = posts.get('email')
     try:
-        control.register(identity, id, session['open_id'])
+        control.register(identity, id, name, email, session['open_id'])
         ret = {
             'success': True,
         }
