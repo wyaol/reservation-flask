@@ -33,6 +33,7 @@ def register(identity, id, open_id):
     elif identity == 'finance':
         set_session('finance', id)
         print(session['id'])
+        print(session)
         return finance_service.register(id, open_id)
     raise IdentityNotExistException('identity not found, your identity is %s'%identity)
 
