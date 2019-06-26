@@ -15,7 +15,8 @@ work_views = Blueprint('work_views',__name__)
 
 @work_views.route('/task_done', methods=['POST'])
 def task_done():
-    finance_service.task_done(session['id'])
+    if finance_service.has_task(session['id']) is True:
+        finance_service.task_done(session['id'])
     return json.dumps({
         'success': True
     }, ensure_ascii=False)
