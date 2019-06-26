@@ -6,7 +6,7 @@
 import json
 from flask import Blueprint, request, session
 from .controller.service.finance_service import finance_service
-from .controller.controller_exception import IdentityNotExistException
+from .controller import control
 from .controller.service.service_exception import NoTaskException
 
 
@@ -24,7 +24,7 @@ def task_done():
 @work_views.route('/get_task', methods=['GET'])
 def get_task():
     try:
-        msg = finance_service.get_task(session['id'])
+        msg = control.get_task(session['id'])
         return json.dumps({
             'success': True,
             'task_empty': False,

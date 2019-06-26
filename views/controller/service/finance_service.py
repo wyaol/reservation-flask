@@ -37,14 +37,14 @@ class FinancService:
             raise NoTaskException()
         print(res_data)
         sql2 = "update task set finance_id='%s', state='%s' where task_id='%s'"%(finance_id, '进行中', res_data[0][0])
-        print(sql2)
+        # print(sql2)
         self.sql_client.cursor.execute(sql2)
     # except Exception as e:
     #     self.sql_client.conn.rollback()  # 事务回滚
     #     msg = '事务处理失败 %s'%e
     # else:
         self.sql_client.conn.commit()  # 事务提交
-        msg = '事务处理成功 %s'%self.sql_client.cursor.rowcount  # 关闭连接
+        msg = '任务领取成功 %s'%self.sql_client.cursor.rowcount  # 关闭连接
         return msg
 
     def task_done(self, finance_id):
@@ -54,5 +54,9 @@ class FinancService:
             'finance_id': finance_id,
             'state': '进行中'
         })
+
+    def has_task(self, finnance_id: str):
+        res_date = self.sql_client.select(config.TASK_TABLE_NAME, ['*'], finance_id=finnance_id, state='进行中')
+        return True if len(res_date) != 0 else False
 
 finance_service = FinancService()

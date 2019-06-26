@@ -57,3 +57,8 @@ def get_info(id, identity):
     if identity == 'teacher':
         return  teacher_service.get_info(id)
     raise IdentityNotExistException('identity not found, your identity is %s' % identity)
+
+def get_task(finance_id: str):
+    if finance_service.has_task(finance_id) is False:
+        return finance_service.get_task(finance_id)
+    return '任务正在进行中'
