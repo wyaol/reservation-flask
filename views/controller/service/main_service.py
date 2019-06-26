@@ -7,7 +7,7 @@ from .db import config
 from functools import wraps
 from flask import session
 from .service_exception import GetOpenIdException
-from . import config
+from . import config as service_config
 
 
 def login_require(func):
@@ -76,8 +76,8 @@ def reservate_teacher(id):
 
 
 def send_emil(recv: str, content: str,
-               title=config.EMAIL_TITLE, username=config.EMAIL_USERNAME, passwd=config.EMAIL_PASSWORD,
-               mail_host=config.EMAIL_HOST, port=config.EMAIL_PORT):
+               title=service_config.EMAIL_TITLE, username=service_config.EMAIL_USERNAME, passwd=service_config.EMAIL_PASSWORD,
+               mail_host=service_config.EMAIL_HOST, port=service_config.EMAIL_PORT):
     """
     :param recv: 收件者邮箱地址 例如123456@qq.com
     :param content: 邮件文本内容
