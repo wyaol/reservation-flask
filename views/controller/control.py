@@ -26,9 +26,7 @@ def set_session(identity, id):
 
 def register(identity, id, open_id):
     session['open_id'] = open_id
-    session['identity'] = identity
-    session['id'] = id
-    print(session)
+    set_session(identity, id)
     if identity == 'teacher':
         return teacher_service.register(id, open_id)
     elif identity == 'finance':

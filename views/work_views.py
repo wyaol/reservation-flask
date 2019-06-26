@@ -23,7 +23,6 @@ def task_done():
 
 @work_views.route('/get_task', methods=['GET'])
 def get_task():
-    print(session)
     try:
         msg = control.get_task(session['id'])
         return json.dumps({
