@@ -25,6 +25,7 @@ def set_session(identity, id):
 
 
 def register(identity, id, open_id):
+    session['open_id'] = open_id
     if identity == 'teacher':
         set_session('teacher', id)
         print(session['id'])
