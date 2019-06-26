@@ -58,6 +58,7 @@ def reservate_info(date: str):
     :param date: 某个日期
     :return: list 数组 存储每条记录字典
     """
+    sql_client.conn.ping(reconnect=True)
     sql_str = "select reservate_time, count(*) reservated_num " \
               "from task " \
               "where to_days(reservate_time) = to_days('%s') " \

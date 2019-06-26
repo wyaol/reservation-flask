@@ -29,6 +29,7 @@ class FinancService:
         :param finance_id: 财务人员id
         :return: 返回教师id
         """
+        self.sql_client.conn.ping(reconnect=True)
         sql = 'SELECT task_id, teacher_id from task where to_days(reservate_time) = to_days(now()) and finance_id is null limit 1'
         # try:
         self.sql_client.cursor.execute(sql)
