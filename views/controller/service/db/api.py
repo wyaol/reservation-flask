@@ -4,9 +4,12 @@ from . import config
 
 class SQL:
 
-    def __init__(self, host=config.HOST, user=config.USER, password=config.PASSWORD, database=config.DATABASE, charset=config.CHARSET):
+    def __init__(self, host=config.HOST, user=config.USER, password=config.PASSWORD,
+                 database=config.DATABASE, charset=config.CHARSET, read_timeout=config.READ_TIMEOUT,
+                 write_timeout=config.WRITE_TIMEOUT):
         # 连接database
-        self.conn = pymysql.connect(host=host, user=user, password=password, database=database)
+        self.conn = pymysql.connect(host=host, user=user, password=password, database=database,
+                                    charset=charset, read_timeout=read_timeout, write_timeout=write_timeout)
         # 得到一个可以执行SQL语句的光标对象
         self.cursor = self.conn.cursor()
 

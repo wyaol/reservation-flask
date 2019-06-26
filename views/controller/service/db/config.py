@@ -18,4 +18,7 @@ PASSWORD = 'wyao161211'
 DATABASE = 'reservation'
 CHARSET = 'utf-8'
 
+READ_TIMEOUT = 5
+WRITE_TIMEOUT = 5
+
 MAX_TASK_NUM = 1
