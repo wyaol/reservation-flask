@@ -26,7 +26,7 @@ class FinancService:
     def get_task(self, finance_id: str) -> str:
         """
         从当天任务队列中取出一个任务 返回信息msg
-        :param finance_id:
+        :param finance_id: 财务人员id
         :return:
         """
         sql = 'SELECT task_id from task where to_days(reservate_time) = to_days(now()) and finance_id is null limit 1'
