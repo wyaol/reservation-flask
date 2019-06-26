@@ -48,7 +48,7 @@ class FinancService:
         return res_data[0][1]
 
     def task_done(self, finance_id):
-        return self.sql_client.update(config.TASK_TABLE_NAME, set={
+        self.sql_client.update(config.TASK_TABLE_NAME, set={
             'state': '已完成'
         }, where={
             'finance_id': finance_id,
