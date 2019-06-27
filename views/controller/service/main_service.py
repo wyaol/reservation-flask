@@ -70,11 +70,8 @@ def reservate_info(date: str):
     res_list = []
     for e in res_data:
         timestamp_str = e[0].strftime('%Y-%m-%d %H:%M:%S')
-        timestamp = datetime.strptime(timestamp_str, '%Y-%m-%d %H:%M:%S')
-        if timestamp < datetime.now():
-            res_list.append({'reservate_time': timestamp_str, 'reservate_forbid': True, 'maturity': True})
-        elif int(e[1]) >= config.MAX_TASK_NUM and timestamp >= datetime.now():
-            res_list.append({'reservate_time': timestamp_str, 'reservate_forbid':True , 'maturity': False})
+        if int(e[1]) >= config.MAX_TASK_NUM:
+            res_list.append({'reservate_time': timestamp_str, 'reservate_forbid':True})
     return res_list
 
 
