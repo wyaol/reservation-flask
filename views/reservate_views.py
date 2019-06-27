@@ -17,10 +17,18 @@ def reservate():
     posts = request.form
     date = posts.get('calendar')
     time = posts.get('time')
-    control.reservate(date, time, session['id'])
-    ret = {
-        'success': True,
-    }
+    if control.reservate(date, time, session['id']) is not False:
+        ret = {
+            'success': True,
+            'repeat': False,
+            'msg': ''
+        }
+    else:
+        ret = {
+            'success': False,
+            'repeat': True,
+            'msg': '您已经预约过了'
+        }
     return json.dumps(ret, ensure_ascii=False)
 
 @reservate_views.route('/reservate_info', methods = ['GET'])

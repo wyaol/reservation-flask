@@ -38,7 +38,7 @@ def register(identity, id, name, email, open_id):
 def reservate(date:str, time: str, id):
     if main_service.is_reservated(date, time) is not True:
         return main_service.reservate(date, time, id)
-    return None
+    else:return False
 
 
 def set_info(id, name, sex, email):
