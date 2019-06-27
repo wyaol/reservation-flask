@@ -69,8 +69,12 @@ def reservate_info(date: str):
     res_data = sql_client.cursor.fetchall()
     res_list = []
     for e in res_data:
-        if int(e[1]) >= config.MAX_TASK_NUM or e[0] < datetime.now():
-            res_list.append({'reservate_time': e[0].strftime('%Y-%m-%d %H:%M:%S'), 'reservate_forbid':True })
+        timestamp_str = e[0].strftime('%Y-%m-%d %H:%M:%S')
+        timestamp = datetime.strptime(timestamp_str, '%Y-%m-%d %H:%M:%S')
+        if timestamp < datetime.now():
+            res_list.append({'reservate_time': timestamp_str, 'reservate_forbid': True, 'maturity': True})
+        elif int(e[1]) >= config.MAX_TASK_NUM and timestamp >= datetime.now():
+            res_list.append({'reservate_time': timestamp_str, 'reservate_forbid':True , 'maturity': False})
     return res_list
 
 
