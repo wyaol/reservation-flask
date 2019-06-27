@@ -2,6 +2,7 @@ import json
 import requests
 import smtplib
 from email.mime.text import MIMEText   # 导入模块
+from datetime import datetime
 from .db.api import SQL
 from .db import config
 from functools import wraps
@@ -66,9 +67,11 @@ def reservate_info(date: str):
               "group by reservate_time"%date
     sql_client.cursor.execute(sql_str)
     res_data = sql_client.cursor.fetchall()
-    res_list = [{'reservate_time': e[0].strftime('%Y-%m-%d %H:%M:%S'), 'reservate_forbid':True }
-            if int(e[1]) >= config.MAX_TASK_NUM else None for e in res_data]
-    return list(filter(None, res_list))
+    res_list = []
+    for e in res_data:
+        if int(e[1]) >= config.MAX_TASK_NUM or e[0] < datetime.now():
+            res_list.append({'reservate_time': e[0].strftime('%Y-%m-%d %H:%M:%S'), 'reservate_forbid':True })
+    return res_list
 
 
 def reservate_teacher(id):

@@ -29,7 +29,11 @@ class FinancService:
         :return: 返回教师id
         """
         sql_client = SQL()
-        sql = 'SELECT task_id, teacher_id from task where to_days(reservate_time) = to_days(now()) and finance_id is null limit 1'
+        sql = 'SELECT task_id, teacher_id ' \
+              'from task ' \
+              'where to_days(reservate_time) = to_days(now()) and finance_id is null ' \
+              'order by reservate_time ASC ' \
+              'limit 1'
         # try:
         sql_client.cursor.execute(sql)
         res_data = sql_client.cursor.fetchall()
