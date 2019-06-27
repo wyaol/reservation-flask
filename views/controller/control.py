@@ -41,20 +41,20 @@ def reservate(date:str, time: str, id):
     return None
 
 
-def set_info(id, name, sex, phone_number):
+def set_info(id, name, sex, email):
     identity = session['identity']
     if identity == 'teacher':
         where = {
             'teacher_id': id
         }
         set = {}
-        assert name is not None or sex is not None or phone_number is not None
+        assert name is not None or sex is not None or email is not None
         if name is not None:
             set['name'] = name
         if sex is not None:
             set['sex'] = sex
-        if phone_number is not None:
-            set['phone_number'] = phone_number
+        if email is not None:
+            set['email'] = email
         return teacher_service.set_info(where=where, set=set)
     raise IdentityNotExistException('identity not found, your identity is %s'%identity)
 

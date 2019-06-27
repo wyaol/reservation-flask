@@ -63,9 +63,9 @@ def set_info():
     posts = request.form
     name = posts.get('name')
     sex = posts.get('sex')
-    phone_number = posts.get('phone_number')
+    email = posts.get('email')
     try:
-        ret = control.set_info(session['id'], name, sex, phone_number)
+        ret = control.set_info(session['id'], name, sex, email)
         ret = {
             'success': True,
             'msg': str(ret)

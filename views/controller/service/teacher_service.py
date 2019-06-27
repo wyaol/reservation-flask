@@ -37,9 +37,9 @@ class TeacherService:
         return SQL().update(self.db_name, set=set, where=where)
 
     def get_info(self, id):
-        res_data = SQL().select(self.db_name, ['name', 'sex', 'phone_number'], teacher_id=id)
+        res_data = SQL().select(self.db_name, ['name', 'sex', 'email'], teacher_id=id)
         # print(res_data)
-        return {'name': res_data[0][0], 'sex': res_data[0][1], 'phone_number': res_data[0][2]}
+        return {'name': res_data[0][0], 'sex': res_data[0][1], 'email': res_data[0][2]}
 
     def get_email(self, teacher_id):
         res_data = SQL().select(self.db_name, ['email', 'name'], teacher_id=teacher_id)
