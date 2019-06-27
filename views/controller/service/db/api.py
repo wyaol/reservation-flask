@@ -14,7 +14,6 @@ class SQL:
         self.cursor = self.conn.cursor()
 
     def insert(self, table_name, **kwargs):
-        self.conn.ping(reconnect=True)
         sql = 'insert into %s (%s) values (%s)'%(table_name,
                                                  SQL.keys2str(list(kwargs.keys())),
                                                  SQL.values2str(list(kwargs.values())))
@@ -22,13 +21,11 @@ class SQL:
         self.conn.commit()
 
     def delete(self, table_name, **kwargs):
-        self.conn.ping(reconnect=True)
         sql = 'delete from %s where %s'%(table_name, SQL.dict2str(kwargs))
         self.cursor.execute(sql)
         self.conn.commit()
 
     def update(self, table_name: str, set: dict, where: dict):
-        self.conn.ping(reconnect=True)
         sql = 'update %s set %s where %s'%(table_name, SQL.dict2str(set, ', '), SQL.dict2str(where))
         self.cursor.execute(sql)
         self.conn.commit()
@@ -41,7 +38,6 @@ class SQL:
         :param kwargs: where限定条件
         :return: 记录 二维元组
         """
-        self.conn.ping(reconnect=True)
         sql = 'select %s from %s where %s'%(SQL.keys2str(argvs), table_name, SQL.dict2str(kwargs))
         self.cursor.execute(sql)
         data = self.cursor.fetchall()
@@ -88,7 +84,12 @@ class SQL:
         数据库直到进程关闭才断开连接
         :return:
         """
-        pass
+        self.cursor.close()
+        self.conn.close()
 
-
-sql_client = SQL()
+    def __del__(self):
+        """
+        当该对象没有人去引用时调用
+        :return:
+        """
+        self.close()
