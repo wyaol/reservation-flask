@@ -68,7 +68,7 @@ def reservate_del():
 def reservate_max():
     posts = request.form
     reservate_max_value = posts.get('reservate_max')
-    main_service.reservate_max(reservate_max_value)
+    main_service.reservate_max(int(reservate_max_value))
     ret = {
         'success': True,
     }
