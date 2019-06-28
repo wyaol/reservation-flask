@@ -62,3 +62,14 @@ def reservate_del():
         'success': True,
     }
     return json.dumps(ret, ensure_ascii=False)
+
+
+@reservate_views.route('/reservate_max', methods = ['POST'])
+def reservate_max():
+    posts = request.form
+    reservate_max_value = posts.get('reservate_max')
+    main_service.reservate_max(reservate_max_value)
+    ret = {
+        'success': True,
+    }
+    return json.dumps(ret, ensure_ascii=False)

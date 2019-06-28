@@ -109,3 +109,8 @@ def send_emil(recv: str, content: str,
 def reservate_del(reservate_time: str, teacher_id: str):
     sql_client = SQL()
     sql_client.delete(config.TASK_TABLE_NAME, teacher_id=teacher_id, reservate_time=reservate_time)
+
+
+def reservate_max(reservate_max_value: str):
+    config.MAX_TASK_NUM = reservate_max_value
+    return config.MAX_TASK_NUM
