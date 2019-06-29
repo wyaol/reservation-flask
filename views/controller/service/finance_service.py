@@ -66,12 +66,12 @@ class FinancService:
 
     def reservate_info(self, date, time):
         sql_client = SQL()
-        sql = "select name, reservate_time, state " \
+        sql = "select name, reservate_time, state, task_id" \
               "from task left join teacher " \
               "on task.teacher_id = teacher.teacher_id " \
               "where reservate_time='%s %s'"%(date, time)
         sql_client.cursor.execute(sql)
         res_date = sql_client.cursor.fetchall()
-        return [{'name': e[0], 'reservate_time': e[1].strftime('%Y-%m-%d %H:%M:%S'), 'state': e[2]} for e in res_date]
+        return [{'name': e[0], 'reservate_time': e[1].strftime('%Y-%m-%d %H:%M:%S'), 'state': e[2], 'tsak_id': e[3]} for e in res_date]
 
 finance_service = FinancService()
