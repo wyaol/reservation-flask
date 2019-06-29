@@ -52,16 +52,15 @@ class FinancService:
         sql_client.conn.close()
         return res_data[0][1]
 
-    def task_done(self, finance_id):
+    def task_done(self, task_id):
         SQL().update(config.TASK_TABLE_NAME, set={
             'state': '已完成'
         }, where={
-            'finance_id': finance_id,
-            'state': '进行中'
+            'task_id': task_id,
         })
 
-    def has_task(self, finnance_id: str):
-        res_date = SQL().select(config.TASK_TABLE_NAME, ['*'], finance_id=finnance_id, state='进行中')
+    def has_task(self, task_id: str):
+        res_date = SQL().select(config.TASK_TABLE_NAME, ['*'], task_id=task_id)
         return True if len(res_date) != 0 else False
 
     def reservate_info(self, date, time):
