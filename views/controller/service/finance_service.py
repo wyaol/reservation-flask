@@ -65,7 +65,7 @@ class FinancService:
 
     def reservate_info(self, date, time):
         sql_client = SQL()
-        sql = "select name, reservate_time, state, task_id" \
+        sql = "select name, reservate_time, state, task_id " \
               "from task left join teacher " \
               "on task.teacher_id = teacher.teacher_id " \
               "where reservate_time='%s %s'"%(date, time)

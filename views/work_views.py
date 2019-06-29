@@ -46,8 +46,6 @@ def reservate_info():
     posts = request.form
     date = posts.get('date')
     time = posts.get('time')
-    print(date)
-    print(time)
     res_data = control.reservate_info(date, time)
     return json.dumps({
         'success': True,
