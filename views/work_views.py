@@ -40,7 +40,7 @@ def get_task():
 
 
 @work_views.route('/reservate_info', methods=['POST'])
-def get_task():
+def reservate_info():
     try:
         posts = request.form
         date = posts.get('date')
