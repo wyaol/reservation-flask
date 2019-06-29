@@ -76,3 +76,7 @@ def get_task(finance_id: str):
             return '发送邮件失败， 系统异常'
         return '任务领取成功'
     return '任务正在进行中'
+
+
+def reservate_info(date, time):
+    return finance_service.reservate_info(date, time)

@@ -64,4 +64,14 @@ class FinancService:
         res_date = SQL().select(config.TASK_TABLE_NAME, ['*'], finance_id=finnance_id, state='进行中')
         return True if len(res_date) != 0 else False
 
+    def reservate_info(self, date, time):
+        sql_client = SQL()
+        sql = "select name, reservate_time, state " \
+              "from task left join teacher " \
+              "on task.teacher_id = teacher.teacher_id " \
+              "where reservate_time='%s %s'"%(date, time)
+        sql_client.cursor.execute(sql)
+        res_date = sql_client.cursor.fetchall()
+        return [{'name': e[0], 'reservate_time': e[1].strftime('%Y-%m-%d %H:%M:%S'), 'state': e[2]} for e in res_date]
+
 finance_service = FinancService()
