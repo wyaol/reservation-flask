@@ -41,19 +41,12 @@ def get_task():
 
 @work_views.route('/reservate_info', methods=['POST'])
 def reservate_info():
-    try:
-        posts = request.form
-        date = posts.get('date')
-        time = posts.get('time')
-        msg = control.reservate_info(date, time)
-        return json.dumps({
-            'success': True,
-            'task_empty': False,
-            'msg': msg
-        }, ensure_ascii=False)
-    except NoTaskException:
-        return json.dumps({
-            'success': True,
-            'task_empty': True,
-            'msg': '所有任务已完成， 当前无任务'
-        }, ensure_ascii=False)
+    posts = request.form
+    date = posts.get('date')
+    time = posts.get('time')
+    res_data = control.reservate_info(date, time)
+    return json.dumps({
+        'success': True,
+        'task_empty': False,
+        'reservate_info': res_data
+    }, ensure_ascii=False)
