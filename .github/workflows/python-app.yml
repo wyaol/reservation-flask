@@ -22,4 +22,4 @@ jobs:
         username: ${{ secrets.USERNAME }}
         password: ${{ secrets.PASSWORD }}
         port: ${{ secrets.PORT }}
-        script: scp . root@${{ secrets.HOST }}:/var/test
+        script: scp . root@${{ secrets.HOST }}:/var/test -P 2022
