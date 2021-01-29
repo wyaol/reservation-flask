@@ -18,8 +18,8 @@ jobs:
     - name: executing remote ssh commands using password
       uses: appleboy/ssh-action@master
       with:
-        host: '123.207.27.133'
-        username: 'root'
-        password: 'xtzhs161211'
-        port: 2022
+        host: 123.207.27.133
+        username: root
+        password: xtzhs161211
+        port: '2022'
         script: whoami
